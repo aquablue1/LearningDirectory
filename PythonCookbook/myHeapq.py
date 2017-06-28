@@ -17,6 +17,7 @@ class PriorityQueue(object):
 class Item():
     def __init__(self, name):
         self.name = name
+
     def __repr__(self):
         """return the format of this class in string"""
         return 'Item({!r})'.format(self.name)
@@ -28,6 +29,4 @@ if __name__ == '__main__':
     q.push(Item('bar'), 5)
     q.push(Item('spam'), 4)
     q.push(Item('gork'), 1)
-    q.pop()
-    i = Item("good")
-    print(i)
+    print(q.pop())

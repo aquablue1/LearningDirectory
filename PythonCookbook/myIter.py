@@ -30,7 +30,10 @@ class Node:
     def add_children(self, node):
         self._children.append(node)
 
-
+    def depth_first(self):
+        yield self
+        for c in self:
+            yield from c.depth_first()
 
 
 
@@ -61,5 +64,9 @@ if __name__ == '__main__':
     child2 = Node(2)
     root.add_children(child1)
     root.add_children(child2)
-    for ch in root:
+    child1.add_children(Node(3))
+    child1.add_children(Node(4))
+    child2.add_children(Node(5))
+    for ch in root.depth_first():
         print(ch)
+

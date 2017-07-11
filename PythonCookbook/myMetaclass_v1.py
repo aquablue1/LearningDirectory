@@ -58,6 +58,30 @@ class PolyHeader(Structure):
     ]
 
 
+class NestedStruct:
+    """
+    Descriptor representing a nested structure.
+    """
+    def __init__(self, name, struct_type, offset):
+        self.name = name
+        self.struct_type = struct_type
+        self.offset = offset
+
+    def __get__(self, instance, cls):
+        if instance is None:
+            return self
+        else:
+            data = instance._buffer[self.offset
+                                        :self.offset + self.struct_type.struct_size]
+            result = self.struct_type(data)
+            # Save resulting structure back on instance to avoid
+            # futher recomputation of this step
+            setattr(instance, self.name, result)
+            return result
+
+
+
+
 if __name__ == '__main__':
     print("Start")
     f = open('polys.bin', 'rb')
@@ -65,3 +89,4 @@ if __name__ == '__main__':
     # define a _fields_ and run from_file.
     print(phead.__class__)
     print(phead.min_x)
+    print(phead.max_x)

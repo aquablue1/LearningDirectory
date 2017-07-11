@@ -15,10 +15,19 @@ class childTest(metaclass=test):
 class useTest(childTest):
     print("use test")
 
-    def __init__(self):
+    def __init__(self, name=""):
+        self.name = name
         print("use test init")
 
+    def __get__(self, instance, owner):
+        return self.name
+
+    def __set__(self, instance, value):
+        self.name = value
+
+class getTest():
+    ut = useTest("bob")
 
 if __name__ == '__main__':
     print("bad")
-    ut = useTest()
+    print(getTest.ut)
